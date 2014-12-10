@@ -33,23 +33,19 @@ if(isset($_POST['submit']))
 	//try to read the settings file if available
 
 	
-
-	$filedata=file_get_contents($miniRDSSettingsFile);
-	if($filedata !="" )
-	{
-		$settingParts = explode("\r",$filedata);
-		$configParts=explode("=",$settingParts[0]);
-		$STATION_ID = $configParts[1];
-		
-		
+	if (file_exists($miniRDSSettingsFile)) {
+		$filedata=file_get_contents($miniRDSSettingsFile);
+		if($filedata !="" )
+		{
+			$settingParts = explode("\r",$filedata);
+			$configParts=explode("=",$settingParts[0]);
+			$STATION_ID = $configParts[1];
+            $configParts=explode("=",$settingParts[1]);
+            $RT_TEXT_PATH= $configParts[1];
 	
-                $configParts=explode("=",$settingParts[1]);
-                $RT_TEXT_PATH= $configParts[1];
-	
-	
+		}
+		fclose($file_handle);
 	}
-	fclose($file_handle);
-
 }
         if($DEBUG) {
 		echo "STATION: ".$STATION_ID."<br/> \n";
@@ -73,7 +69,7 @@ if(isset($_POST['submit']))
 <li>NONE</li>
 </ul>
 
-<form method="post" action="http://<? echo $_SERVER['SERVER_NAME']?>/plugin.php?plugin=BetaBrite&page=plugin_setup.php">
+<form method="post" action="http://<? echo $_SERVER['SERVER_NAME']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
 Manually Set Station ID<br>
 <p><label for="station_ID">Station ID:</label>
 <input type="text" value="<? if($STATION_ID !="" ) { echo $STATION_ID; } else { echo "";};?>" name="station" id="station_ID"></input>
