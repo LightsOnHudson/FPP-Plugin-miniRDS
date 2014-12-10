@@ -69,6 +69,20 @@ if(isset($_POST['submit']))
 <li>NONE</li>
 </ul>
 
+<p>Install:
+<ul>
+<li>Create folder for RDS text on /home/pi/media/RDS (For example)</li>
+<li>Give your station a name for PS_TEXT.txt</li>
+<li>Enter the path to the RDS TEXT below '/home/pi/media/RDS/ (must include trailing slash at this point)</li>
+<li>Save the configuration</li>
+<li>Restart FPPD</li>
+<li>Run a playlist with a media file with ID3 tags in it</li>
+<li>Point your mniniRDS dynamic radio text file to \\<fpphost>\path\RT_TEXT.txt for RT Text (in windows format)</li>
+<li>Point your mniniRDS dynamic radio text file to \\<fpphost>\path\PS_TEXT.txt for PS Text (in windows format)</li>
+</ul>
+
+You need to run a media file first to create the initial RT_TEXT and PS_TEXT files. Will update it so it will create shells at the beginning of plugin.
+
 <form method="post" action="http://<? echo $_SERVER['SERVER_NAME']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
 Manually Set Station ID<br>
 <p><label for="station_ID">Station ID:</label>
