@@ -45,7 +45,7 @@ if(isset($_POST['submit']))
 	
 		}
 		fclose($file_handle);
-	}
+	} 
 }
         if($DEBUG) {
 		echo "STATION: ".$STATION_ID."<br/> \n";
