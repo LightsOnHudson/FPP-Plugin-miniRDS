@@ -3,7 +3,7 @@
 error_reporting(0);
 //require 'config/config.inc';
 include 'config/functions.inc';
-$miniRDSSettings = "/home/pi/media/plugins/miniRDSText.settings";
+$miniRDSSettingsFile = "/home/pi/media/plugins/miniRDSText.settings";
 include 'config/php_serial.class.php';
 //arg0 is  the program
 //arg1 is the first argument in the registration this will be --list
@@ -84,35 +84,25 @@ function sendMessage($songTitle,$songArtist) {
 
 	global $miniRDSSettingsFile;
 
-//read in the configuration
-$file_handle = fopen($miniRDSSettingsFile, "r");
-	while (!feof($file_handle)) 
-	{
-   		$filedata = fgets($file_handle);
+        if (!file_exists($miniRDSSettingsFile)) {
+		logEntry("miniRDSText.settings file does not exist, configure the plugin");
+		exit(0);
 	}
+		//logEntry("opening settings file");
+                $filedata=file_get_contents($miniRDSSettingsFile);
+                if($filedata !="" )
+		//logEntry($filedata);
+                {
+                        $settingParts = explode("\r",$filedata);
+                        $configParts=explode("=",$settingParts[0]);
+                        $STATION_ID = $configParts[1];
+            		$configParts=explode("=",$settingParts[1]);
+            		$RT_TEXT_PATH= $configParts[1];
 
-	$filedata=file_get_contents($miniRDSSettingsFile);
-	if($filedata !="" )
-	{
-		$settingParts = explode("\r",$filedata);
-		$configParts=explode("=",$settingParts[0]);
-		$STATION_ID = $configParts[1];
-		
-		
-	
-                $configParts=explode("=",$settingParts[3]);
-                $RT_TEXT_PATH= $configParts[1];
-	
-		
-	}
-	fclose($file_handle);
+                }
 
-	logEntry("reading config file");
-	logEntry("Station_ID: ".$STATION_ID." DEVICE: ".$DEVICE." DEVICE_CONNECTION_TYPE: ".$DEVICE_CONNECTION_TYPE." RT TEXT PATH: ".$RT_TEXT_PATH." IP: ".$IP. " PORT: ".$PORT." LOOPMESSAGE: ".$LOOPMESSAGE." Color: ".$cl_color);
-
-
-       
-
+	//logEntry("reading config file");
+	logEntry("Station_ID: ".$STATION_ID." RT TEXT PATH: ".$RT_TEXT_PATH);
 		
 		$f = fopen($RT_TEXT_PATH."PS_TEXT.txt", "w"); 
 		fwrite($f, $STATION_ID); 
@@ -121,8 +111,6 @@ $file_handle = fopen($miniRDSSettingsFile, "r");
                 $f = fopen($RT_TEXT_PATH."RT_TEXT.txt", "w");
                 fwrite($f, $songTitle." - ".$songArtist);
                 fclose($f);
-		
-	
 
 }
 ?>
