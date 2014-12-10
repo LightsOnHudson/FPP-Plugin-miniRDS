@@ -71,15 +71,13 @@ if(isset($_POST['submit']))
 
 <p>Install:
 <ul>
-<li>Create folder for RDS text on /home/pi/media/RDS/ (For example) DO NOT USE ROOT TO CREATE THE ACCOUNT. Use the PI account</li>
 <li>Give your station a name for PS_TEXT.txt</li>
-<li>Enter the path to the RDS TEXT below '/home/pi/media/RDS/ (must include trailing slash at this point)</li>
 <li>Save the configuration</li>
 <li>Restart FPPD</li>
 <li>Run a playlist with a media file with ID3 tags in it</li>
 <li>Mount a drive on your miniRDS windows machine to point to the fpphost</li>
-<li>Point your mniniRDS dynamic radio text file to \\<fpphost>\path\RT_TEXT.txt for RT Text (in windows format)</li>
-<li>Point your mniniRDS dynamic radio text file to \\<fpphost>\path\PS_TEXT.txt for PS Text (in windows format)</li>
+<li>Point your mniniRDS dynamic radio text file to \\<fpphost>\PI\media\plugins\RT_TEXT.txt for RT Text (in windows format)</li>
+<li>Point your mniniRDS dynamic radio text file to \\<fpphost>\PI\media\plugins\PS_TEXT.txt for PS Text (in windows format)</li>
 </ul>
 
 You need to run a media file first to create the initial RT_TEXT and PS_TEXT files. Will update it so it will create shells at the beginning of plugin.
@@ -93,7 +91,7 @@ Manually Set Station ID<br>
 
 
 RT TEXT PATH:
-<input type="text" value="<? if($RT_TEXT_PATH !="" ) { echo $RT_TEXT_PATH; } else { echo "";};?>" name="rt_text_path" size="64" id="rt_text_path"></input>
+<input type="text" value="<? if($RT_TEXT_PATH !="" ) { echo $RT_TEXT_PATH; } else { echo "/home/pi/media/plugins/";};?>" name="rt_text_path" size="64" id="rt_text_path"></input>
 
 <p/>
 <input id="submit_button" name="submit" type="submit" class="buttons" value="Save Config">
