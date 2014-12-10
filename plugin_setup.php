@@ -71,12 +71,13 @@ if(isset($_POST['submit']))
 
 <p>Install:
 <ul>
-<li>Create folder for RDS text on /home/pi/media/RDS (For example)</li>
+<li>Create folder for RDS text on /home/pi/media/RDS/ (For example) DO NOT USE ROOT TO CREATE THE ACCOUNT. Use the PI account</li>
 <li>Give your station a name for PS_TEXT.txt</li>
 <li>Enter the path to the RDS TEXT below '/home/pi/media/RDS/ (must include trailing slash at this point)</li>
 <li>Save the configuration</li>
 <li>Restart FPPD</li>
 <li>Run a playlist with a media file with ID3 tags in it</li>
+<li>Mount a drive on your miniRDS windows machine to point to the fpphost</li>
 <li>Point your mniniRDS dynamic radio text file to \\<fpphost>\path\RT_TEXT.txt for RT Text (in windows format)</li>
 <li>Point your mniniRDS dynamic radio text file to \\<fpphost>\path\PS_TEXT.txt for PS Text (in windows format)</li>
 </ul>
