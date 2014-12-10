@@ -32,11 +32,7 @@ if(isset($_POST['submit']))
 		echo "READING FILE: <br/> \n";
 	//try to read the settings file if available
 
-	$file_handle = fopen($miniRDSSettingsFile, "r");
-	while (!feof($file_handle)) 
-	{
-   		$filedata = fgets($file_handle);
-	}
+	
 
 	$filedata=file_get_contents($miniRDSSettingsFile);
 	if($filedata !="" )
