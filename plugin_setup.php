@@ -1,6 +1,6 @@
 <?php
 //$DEBUG=true;
-$miniRDSSettingsFile = "/home/pi/media/plugins/miniRDSText.settings";
+$miniRDSSettingsFile = $settings['mediaDirectory']."/config/plugin.miniRDSText";
 if(isset($_POST['submit']))
 {
     $name = htmlspecialchars($_POST['station']);
