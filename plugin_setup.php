@@ -1,59 +1,43 @@
 <?php
-//$DEBUG=true;
-$miniRDSSettingsFile = $settings['mediaDirectory']."/config/plugin.miniRDSText";
+
+$skipJSsettings = 1;
+//include_once '/opt/fpp/www/config.php';
+include_once '/opt/fpp/www/common.php';
+
+$pluginName = "miniRDSText";
+
+include_once 'functions.inc.php';
+
+$logFile = $settings['logDirectory']."/".$pluginName.".log";
+
+$myPid = getmypid();
+
+
+
 if(isset($_POST['submit']))
 {
-    $name = htmlspecialchars($_POST['station']);
-   
-    $rt_text_path= htmlspecialchars($_POST['rt_text_path']);
-  
-		//echo "Station Id set to: ".$name;
 
-		$miniRDSSettings = fopen($miniRDSSettingsFile, "w") or die("Unable to open file!");
-		$txt = "STATION_ID=".$name."\r\n";
-	
-		$txt .= "RT_TEXT_PATH=".$rt_text_path."\r\n";
-	
-		fwrite($miniRDSSettings, $txt);
-		fclose($miniRDSSettings);
-		$STATION_ID=$name;
-	
 
-		$RT_TEXT_PATH= $rt_text_path;
-	//add the ability for GROWL to show changes upon submit :)
-	//	$.jGrowl("Station Id: $STATION_ID");	
-        
-  
- 
 
-} else {
+	$STATION_ID=trim($_POST["STATION_ID"]);
+	$RT_TEXT_PATH=trim($_POST["RT_TEXT_PATH"]);
 
-	if($DEBUG)
-		echo "READING FILE: <br/> \n";
-	//try to read the settings file if available
+	$ENABLED=$_POST["ENABLED"];
 
-	
-	if (file_exists($miniRDSSettingsFile)) {
-		$filedata=file_get_contents($miniRDSSettingsFile);
-		if($filedata !="" )
-		{
-			$settingParts = explode("\r",$filedata);
-			$configParts=explode("=",$settingParts[0]);
-			$STATION_ID = $configParts[1];
-            $configParts=explode("=",$settingParts[1]);
-            $RT_TEXT_PATH= $configParts[1];
-	
-		}
-		fclose($file_handle);
-	} 
+	//	echo "Writring config fie <br/> \n";
+
+	WriteSettingToFile("STATION_ID",urlencode($STATION_ID),$pluginName);
+	WriteSettingToFile("RT_TEXT_PATH",urlencode($RT_TEXT_PATH),$pluginName);
+
+
+	WriteSettingToFile("ENABLED",$ENABLED,$pluginName);
+
+
 }
-        if($DEBUG) {
-		echo "STATION: ".$STATION_ID."<br/> \n";
-		
-		echo "RT TEXT PATH: ".$RT_TEXT_PATH."<br/> \n";
-                echo "IP: ".$IP."<br/> \n";
-              
-                }
+$STATION_ID=urldecode(ReadSettingFromFile("STATION_ID",$pluginName));
+$RT_TEXT_PATH=urldecode(ReadSettingFromFile("RT_TEXT_PATH",$pluginName));
+$ENABLED = ReadSettingFromFile("ENABLED",$pluginName);
+
 ?>
 
 <html>
@@ -83,15 +67,29 @@ if(isset($_POST['submit']))
 You need to run a media file first to create the initial RT_TEXT and PS_TEXT files. Will update it so it will create shells at the beginning of plugin.
 
 <form method="post" action="http://<? echo $_SERVER['SERVER_NAME']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
+
+<?
+
+echo "ENABLE PLUGIN: ";
+
+if($ENABLED == "on" || $ENABLED == 1) {
+	echo "<input type=\"checkbox\" checked name=\"ENABLED\"> \n";
+	//PrintSettingCheckbox("Radio Station", "ENABLED", $restart = 0, $reboot = 0, "ON", "OFF", $pluginName = $pluginName, $callbackName = "");
+} else {
+	echo "<input type=\"checkbox\"  name=\"ENABLED\"> \n";
+}
+echo "<p/>\n";
+?>
+<p/>
 Manually Set Station ID<br>
 <p><label for="station_ID">Station ID:</label>
-<input type="text" value="<? if($STATION_ID !="" ) { echo $STATION_ID; } else { echo "";};?>" name="station" id="station_ID"></input>
+<input type="text" value="<? if($STATION_ID !="" ) { echo $STATION_ID; } else { echo "";};?>" name="STATION_ID" id="STATION_ID"></input>
 (Expected format: up to 8 characters)
 </p>
 
 
 RT TEXT PATH:
-<input type="text" value="<? if($RT_TEXT_PATH !="" ) { echo $RT_TEXT_PATH; } else { echo "/home/pi/media/plugins/";};?>" name="rt_text_path" size="64" id="rt_text_path"></input>
+<input type="text" value="<? if($RT_TEXT_PATH !="" ) { echo $RT_TEXT_PATH; } else { echo "/home/pi/media/plugins/";};?>" name="RT_TEXT_PATH" size="64" id="RT_TEXT_PATH"></input>
 
 <p/>
 <input id="submit_button" name="submit" type="submit" class="buttons" value="Save Config">
