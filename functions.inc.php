@@ -18,8 +18,6 @@ function logEntry($data) {
 function processCallback($argv) {
 	global $DEBUG,$pluginName;
 	
-	$SEPARATOR = urldecode(ReadSettingFromFile("SEPARATOR",$pluginName));
-	
 	if($DEBUG)
 		print_r($argv);
 	//argv0 = program
