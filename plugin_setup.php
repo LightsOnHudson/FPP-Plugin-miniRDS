@@ -66,7 +66,7 @@ $ENABLED = ReadSettingFromFile("ENABLED",$pluginName);
 
 You need to run a media file first to create the initial RT_TEXT and PS_TEXT files. Will update it so it will create shells at the beginning of plugin.
 
-<form method="post" action="http://<? echo $_SERVER['SERVER_NAME']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
+<form method="post" action="http://<? echo $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
 
 <?
 
