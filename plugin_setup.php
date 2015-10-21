@@ -4,15 +4,27 @@ $skipJSsettings = 1;
 //include_once '/opt/fpp/www/config.php';
 include_once '/opt/fpp/www/common.php';
 
-$pluginName = "miniRDSText";
+$pluginName = "miniRDS";
 
 include_once 'functions.inc.php';
+include_once 'commonFunctions.inc.php';
+
+$pluginUpdateFile = $settings['pluginDirectory']."/".$pluginName."/"."pluginUpdate.inc";
 
 $logFile = $settings['logDirectory']."/".$pluginName.".log";
 
 $myPid = getmypid();
 
+$gitURL = "https://github.com/LightsOnHudson/FPP-Plugin-miniRDS.git";
 
+logEntry("plugin update file: ".$pluginUpdateFile);
+
+if(isset($_POST['updatePlugin']))
+{
+	$updateResult = updatePluginFromGitHub($gitURL, $branch="master", $pluginName);
+
+	echo $updateResult."<br/> \n";
+}
 
 if(isset($_POST['submit']))
 {
@@ -34,9 +46,9 @@ if(isset($_POST['submit']))
 
 
 }
-$STATION_ID=urldecode(ReadSettingFromFile("STATION_ID",$pluginName));
-$RT_TEXT_PATH=urldecode(ReadSettingFromFile("RT_TEXT_PATH",$pluginName));
-$ENABLED = ReadSettingFromFile("ENABLED",$pluginName);
+$STATION_ID=$pluginSettings['STATION_ID'];
+$RT_TEXT_PATH=$pluginSettings['RT_TEXT_PATH'];
+$ENABLED = $pluginSettings['ENABLED'];
 
 ?>
 
@@ -44,7 +56,7 @@ $ENABLED = ReadSettingFromFile("ENABLED",$pluginName);
 <head>
 </head>
 
-<div id="miniRDSText" class="settings">
+<div id="miniRDS" class="settings">
 <fieldset>
 <legend>miniRDS Text File Support Instructions</legend>
 
@@ -59,13 +71,14 @@ $ENABLED = ReadSettingFromFile("ENABLED",$pluginName);
 <li>Save the configuration</li>
 <li>Restart FPPD</li>
 <li>Run a playlist with a media file with ID3 tags in it</li>
+<!--
 <li>Mount a drive on your miniRDS windows machine to point to the fpphost</li>
 <li>Point your mniniRDS dynamic radio text file to \\<fpphost>\PI\media\plugins\RT_TEXT.txt for RT Text (in windows format)</li>
 <li>Point your mniniRDS dynamic radio text file to \\<fpphost>\PI\media\plugins\PS_TEXT.txt for PS Text (in windows format)</li>
 </ul>
 
 You need to run a media file first to create the initial RT_TEXT and PS_TEXT files. Will update it so it will create shells at the beginning of plugin.
-
+-->
 <form method="post" action="http://<? echo $_SERVER['SERVER_NAME']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
 
 <?
@@ -93,6 +106,13 @@ RT TEXT PATH:
 
 <p/>
 <input id="submit_button" name="submit" type="submit" class="buttons" value="Save Config">
+<?
+ if(file_exists($pluginUpdateFile))
+ {
+ 	//echo "updating plugin included";
+	include $pluginUpdateFile;
+}
+?>
 </form>
 
 
