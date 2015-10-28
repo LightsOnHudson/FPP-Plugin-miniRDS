@@ -9,6 +9,11 @@ $pluginName = "miniRDS";
 include_once 'functions.inc.php';
 include_once 'commonFunctions.inc.php';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+$pluginUpdateFile = $settings['pluginDirectory']."/".$pluginName."/"."pluginUpdate.inc";
+>>>>>>> origin/master
 =======
 
 $pluginUpdateFile = $settings['pluginDirectory']."/".$pluginName."/"."pluginUpdate.inc";
@@ -21,11 +26,19 @@ $myPid = getmypid();
 $gitURL = "https://github.com/LightsOnHudson/FPP-Plugin-miniRDS.git";
 
 logEntry("plugin update file: ".$pluginUpdateFile);
+<<<<<<< HEAD
 
 if(isset($_POST['updatePlugin']))
 {
 	$updateResult = updatePluginFromGitHub($gitURL, $branch="master", $pluginName);
 
+=======
+
+if(isset($_POST['updatePlugin']))
+{
+	$updateResult = updatePluginFromGitHub($gitURL, $branch="master", $pluginName);
+
+>>>>>>> origin/master
 	echo $updateResult."<br/> \n";
 }
 
@@ -82,9 +95,12 @@ $ENABLED = $pluginSettings['ENABLED'];
 
 You need to run a media file first to create the initial RT_TEXT and PS_TEXT files. Will update it so it will create shells at the beginning of plugin.
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <form method="post" action="http://<? echo $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
 =======
+=======
+>>>>>>> origin/master
 -->
 <form method="post" action="http://<? echo $_SERVER['SERVER_NAME']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
 >>>>>>> origin/master

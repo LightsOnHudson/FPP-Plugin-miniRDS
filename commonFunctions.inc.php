@@ -1,13 +1,17 @@
 <?php
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 //fork a non blocking fppd process
 
 function fork($argv) {
 	global $DEBUG;
+<<<<<<< HEAD
 <<<<<<< HEAD
 	
 	$safe_arg = escapeshellarg($argv[4]);
@@ -30,6 +34,8 @@ function fork($argv) {
 		return "Parent";
 	
 =======
+=======
+>>>>>>> origin/master
 
 	$safe_arg = escapeshellarg($argv[4]);
 	//$safe_arg["arg_2"] = escapeshellarg($arg_2);
@@ -50,11 +56,15 @@ function fork($argv) {
 		}
 		return "Parent";
 
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 		// Can no longer use $db because it will be closed by the child
 		// Instead, make a new MySQL connection for ourselves to work with
 	} else {
 		if($DEBUG){
+<<<<<<< HEAD
 <<<<<<< HEAD
 		logEntry("------------");
 		logEntry("fork child");
@@ -66,6 +76,8 @@ function fork($argv) {
 		return "Child";
 }
 =======
+=======
+>>>>>>> origin/master
 			logEntry("------------");
 			logEntry("fork child");
 			logEntry("------------");
@@ -75,6 +87,9 @@ function fork($argv) {
 		processCallback($argv);
 		return "Child";
 	}
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 }
 //update plugin
