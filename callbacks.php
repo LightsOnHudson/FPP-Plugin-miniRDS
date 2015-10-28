@@ -7,6 +7,7 @@ include_once '/opt/fpp/www/config.php';
 include_once '/opt/fpp/www/common.php';
 
 include_once "functions.inc.php";
+include_once "commonFunctions.inc.php";
 $pluginName = "miniRDSText";
 
 
@@ -42,19 +43,24 @@ $FPPD_COMMAND = $argv[1];
 
 if($FPPD_COMMAND == "--list") {
 
-	echo $callbackRegisters;
-	logEntry("FPPD List Registration request: responded:". $callbackRegisters);
-	exit(0);
+			echo $callbackRegisters;
+			logEntry("FPPD List Registration request: responded:". $callbackRegisters);
+			exit(0);
 }
 
 if($FPPD_COMMAND == "--type") {
-	logEntry("type callback requested");
-	//we got a register request message from the daemon
-	processCallback($argv);
-	exit(0);
-}
+		if($DEBUG)
+			logEntry("DEBUG: type callback requested");
+			//we got a register request message from the daemon
+		$forkResult = fork($argv);
+		if($DEBUG)
+		logEntry("DEBUG: Fork Result: ".$forkResult);
+		exit(0); 
+		//	processCallback($argv);	
+} else {
 
-logEntry($argv[0]." called with no parameteres");
-exit(0);
+			logEntry($argv[0]." called with no parameteres");
+			exit(0);
+}
 
 ?>
