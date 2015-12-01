@@ -1,23 +1,17 @@
 <?php
 
 $skipJSsettings = 1;
-//include_once '/opt/fpp/www/config.php';
+
 include_once '/opt/fpp/www/common.php';
 
 $pluginName = "miniRDS";
 
 include_once 'functions.inc.php';
 include_once 'commonFunctions.inc.php';
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 
 $pluginUpdateFile = $settings['pluginDirectory']."/".$pluginName."/"."pluginUpdate.inc";
->>>>>>> origin/master
-=======
 
-$pluginUpdateFile = $settings['pluginDirectory']."/".$pluginName."/"."pluginUpdate.inc";
->>>>>>> origin/master
 
 $logFile = $settings['logDirectory']."/".$pluginName.".log";
 
@@ -26,20 +20,13 @@ $myPid = getmypid();
 $gitURL = "https://github.com/LightsOnHudson/FPP-Plugin-miniRDS.git";
 
 logEntry("plugin update file: ".$pluginUpdateFile);
-<<<<<<< HEAD
+
 
 if(isset($_POST['updatePlugin']))
 {
 	$updateResult = updatePluginFromGitHub($gitURL, $branch="master", $pluginName);
 
-=======
 
-if(isset($_POST['updatePlugin']))
-{
-	$updateResult = updatePluginFromGitHub($gitURL, $branch="master", $pluginName);
-
->>>>>>> origin/master
-	echo $updateResult."<br/> \n";
 }
 
 if(isset($_POST['submit']))
@@ -87,23 +74,9 @@ $ENABLED = $pluginSettings['ENABLED'];
 <li>Save the configuration</li>
 <li>Restart FPPD</li>
 <li>Run a playlist with a media file with ID3 tags in it</li>
-<!--
-<li>Mount a drive on your miniRDS windows machine to point to the fpphost</li>
-<li>Point your mniniRDS dynamic radio text file to \\<fpphost>\PI\media\plugins\RT_TEXT.txt for RT Text (in windows format)</li>
-<li>Point your mniniRDS dynamic radio text file to \\<fpphost>\PI\media\plugins\PS_TEXT.txt for PS Text (in windows format)</li>
-</ul>
 
-You need to run a media file first to create the initial RT_TEXT and PS_TEXT files. Will update it so it will create shells at the beginning of plugin.
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-<form method="post" action="http://<? echo $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
-=======
-=======
->>>>>>> origin/master
--->
 <form method="post" action="http://<? echo $_SERVER['SERVER_NAME']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
->>>>>>> origin/master
+
 
 <?
 
@@ -126,7 +99,7 @@ Manually Set Station ID<br>
 
 
 RT TEXT PATH:
-<input type="text" value="<? if($RT_TEXT_PATH !="" ) { echo $RT_TEXT_PATH; } else { echo "/home/pi/media/plugins/";};?>" name="RT_TEXT_PATH" size="64" id="RT_TEXT_PATH"></input>
+<input type="text" value="<? if($RT_TEXT_PATH !="" ) { echo $RT_TEXT_PATH; } else { echo "/home/fpp/media/plugins/";};?>" name="RT_TEXT_PATH" size="64" id="RT_TEXT_PATH"></input>
 
 <p/>
 <input id="submit_button" name="submit" type="submit" class="buttons" value="Save Config">
@@ -138,7 +111,6 @@ RT TEXT PATH:
 }
 ?>
 </form>
-
 
 <p>To report a bug, please file it against the miniRDS Text plugin project on Git: https://github.com/LightsOnHudson/FPP-Plugin-miniRDS
 
