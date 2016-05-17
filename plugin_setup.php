@@ -75,7 +75,7 @@ $ENABLED = $pluginSettings['ENABLED'];
 <li>Restart FPPD</li>
 <li>Run a playlist with a media file with ID3 tags in it</li>
 
-<form method="post" action="http://<? echo $_SERVER['SERVER_NAME']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
+<form method="post" action="http://<? echo $_SERVER['SERVER_ADDR']?>/plugin.php?plugin=miniRDSText&page=plugin_setup.php">
 
 
 <?
